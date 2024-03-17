@@ -1,9 +1,10 @@
 const { createActivityBd } = require("../controllers/activitirdController");
 
-const activitiesHandler = (req, res)=>{
+const getactivitiesHandler = (req, res)=>{
     res.status(200).send("Aquí van todas las actividades");
 };
 
+// Creando Actividades
 const activitiesPostHandler = async (req, res)=>{
     const { nombre, duracion, dificultad, temporada } = req.body;
 
@@ -17,6 +18,6 @@ const activitiesPostHandler = async (req, res)=>{
 };
 
 module.exports = {
-    activitiesHandler,
+    getactivitiesHandler,
     activitiesPostHandler
 }

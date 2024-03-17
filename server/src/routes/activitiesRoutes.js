@@ -1,9 +1,9 @@
 const { Router } = require("express");
-const { activitiesHandler, activitiesPostHandler } = require("../handlers/activitiesHandlers");
+const { getactivitiesHandler, activitiesPostHandler } = require("../handlers/activitiesHandlers");
 
 const activitiesRouter = Router();
 
-activitiesRouter.get("/", activitiesHandler);
+activitiesRouter.get("/", getactivitiesHandler);
 
 activitiesRouter.post("/", activitiesPostHandler);
 

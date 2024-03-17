@@ -1,8 +1,8 @@
 const { Country } = require('../db');
 const axios = require('axios');
 
-const getPostCountry = async (req, res)=>{
-    try {
+const getCreateBdCountry = async (req, res)=>{
+    // try {
         const allCountries = await axios.get('http://localhost:5000/countries')
         const dataAll = allCountries.data;
 
@@ -35,12 +35,12 @@ const getPostCountry = async (req, res)=>{
             });
         });
         
-     res.status(200).send('Se guardaron los datos');
-    } catch (error) {
-        res.status(400).send(error= error.message)
-    }
+    //  res.status(200).send('Se guardaron los datos');
+    // } catch (error) {
+    //     res.status(400).json({error= error.message})
+    // }
 }
 
 module.exports ={
-    getPostCountry,
+    getCreateBdCountry,
 }

@@ -1,22 +1,37 @@
-const {getCountryById} = require('../controllers/countryController')
-// Estar ATENTOS a CAMBIAR los datos del QUERY
-const countriesHandler = (req, res)=>{
-    const { name, email, otraCosa, masCosas } = req.query;
-    if(name) res.status(200).send(`Aquí va el Pais ${name}`);
-    res.status(200).send("Aquí van todos los Paises");
+const {getCountryById, getAllCountry, getCountryByName} = require('../controllers/countryController')
+
+
+const countriesHandler = async (req, res)=>{
+    const { name } = req.query;
+       console.log(name)
+    try {
+        if(name) {
+            const countyByName = await getCountryByName(name)
+            res.status(200).json(countyByName);
+        } else {
+            const response = await getAllCountry()
+            res.status(200).json(response)
+        };
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+    
 };
 
 const countriesDetailHandler = async (req, res)=>{
     const {id} = req.params;
-
+    // res.status(200).send(`Detalle del Usuario ${id}`); //? esto fue de solo prueba de inicio 42:57
+    // console.log(id)
 try {
     const response = await getCountryById(id);
     res.status(200).json(response);
+    // console.log(response)
 } catch (error) {
-    
+    res.status(400).send(error = error.message)
 }
 
-    // res.status(200).send(`Detalle del Usuario ${id}`); //? esto fue de solo prueba de inicio 42:57
+
+
 };
 
 module.exports = {
