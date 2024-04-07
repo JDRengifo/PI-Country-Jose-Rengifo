@@ -2,27 +2,27 @@ const { Country } = require('../db');
 const axios = require('axios');
 
 const getCreateBdCountry = async (req, res)=>{
-    // try {
+    //try {
         const allCountries = await axios.get('http://localhost:5000/countries')
         const dataAll = allCountries.data;
 
         const countries = dataAll.map(item => {
             return {
                 id: item.cca3,
-                nombre: item.name.common,
+                nombre: item.name.common.toUpperCase(),
                 bandera: item.flags != null ? item.flags.png : 'no se encontro imagen',
                 continente: item.continents[0],
                 capital: item.capital != null ? item.capital[0] : 'No se encontro dato',
                 subregion: item.subregion != null ? item.subregion : 'Sin dato',
                 area: item.area,
                 poblacion: item.population,
+                
             }
         });
-
         countries.forEach(async (elemento) => {
-            // console.log(elemento.subregion)
-            await Country.findOrCreate({
-                where: {
+                // console.log(elemento.subregion)
+                await Country.findOrCreate({
+                    where: {
                     id: elemento.id,
                     nombre: elemento.nombre,
                     bandera: elemento.bandera,
@@ -35,9 +35,11 @@ const getCreateBdCountry = async (req, res)=>{
             });
         });
         
-    //  res.status(200).send('Se guardaron los datos');
+                   
+        return allCountries;
+    
     // } catch (error) {
-    //     res.status(400).json({error= error.message})
+    //     res.status(400).json({error: error.message})
     // }
 }
 

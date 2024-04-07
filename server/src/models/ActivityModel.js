@@ -17,15 +17,19 @@ sequelize.define("Activity",{
     },
   
     dificultad:{
-      type: DataTypes.INTEGER(), // Puedes usar INTEGER para el número aleatorio
+      type: DataTypes.INTEGER, // Puedes usar INTEGER para el número aleatorio
       validate: {
           min: 1,
           max: 6,
         },
       allowNull: true,
     },
+
+    imagen:{
+      type: DataTypes.STRING
+    },
   
-    duración:{
+    duracion:{
       type: DataTypes.INTEGER
     }, 
   

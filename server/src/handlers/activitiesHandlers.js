@@ -1,23 +1,31 @@
-const { createActivityBd } = require("../controllers/activitirdController");
+const { getAllActivities } = require("../controllers/getAllActivities");
+const { createActivityBd } = require("../controllers/postActivityController");
 
-const getactivitiesHandler = (req, res)=>{
-    res.status(200).send("Aquí van todas las actividades");
+const getactivitiesHandler = async (req, res)=>{
+    try {
+        const response = await getAllActivities()
+        res.status(200).json(response);
+        
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
 };
 
 // Creando Actividades
 const activitiesPostHandler = async (req, res)=>{
-    const { nombre, duracion, dificultad, temporada } = req.body;
-
+    const { nombre, duracion, dificultad, temporada, imagen, paises } = req.body;
+console.log('Julian3', imagen)
     try {
-        const response = await createActivityBd(nombre, duracion, dificultad, temporada);
+        const response = await createActivityBd(nombre, duracion, dificultad, temporada, imagen, paises);
         res.status(200).json(response);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
-    res.status(200).send(`creando actividades`);
+    // res.status(200).send(`creando actividades`);
 };
 
 module.exports = {
     getactivitiesHandler,
-    activitiesPostHandler
+    activitiesPostHandler,
+    
 }
